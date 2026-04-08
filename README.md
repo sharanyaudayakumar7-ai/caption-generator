@@ -39,6 +39,13 @@ An AI-powered web application that generates Instagram-style captions from image
   - ImgBB (image hosting)
 
 ---
+## 🔑 Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+OPENROUTER_API_KEY=your_api_key_here
+IMGBB_API_KEY=your_api_key_here
 
 ## 📦 Installation (Run Locally)
 
