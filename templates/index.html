@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Caption Generator</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top, #0d0d16, #000000);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* 🌟 MAIN CARD */
+        .container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            width: 400px;
+            text-align: center;
+        }
+
+        /* ✨ SOFT GLOW BEHIND CARD */
+        .container::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            border-radius: 22px;
+            background: linear-gradient(120deg, #6366f1, #a855f7, #22d3ee);
+            filter: blur(25px);
+            opacity: 0.25;
+            z-index: -1;
+        }
+
+        /* 🌈 TITLE */
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #7dd3fc, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 📂 UPLOAD BUTTON */
+        .upload-box {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.08);
+            cursor: pointer;
+            font-size: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.2s;
+            margin-bottom: 15px;
+        }
+
+        .upload-box:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* 🔘 GENERATE BUTTON */
+        button {
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.5);
+        }
+
+        /* 🖼️ IMAGE */
+        img {
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        /* 💬 CAPTION */
+        .caption-box {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            font-size: 16px;
+            box-shadow: 0 5px 20px rgba(168, 85, 247, 0.2);
+        }
+
+        /* 📋 COPY BUTTON */
+        .copy-btn {
+            margin-top: 10px;
+            background: #10b981;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .copy-btn:hover {
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5);
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>⚡ AI Caption Generator</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- 📂 CUSTOM FILE INPUT -->
+        <label class="upload-box">
+            📂 <span id="fileName">Upload Image</span>
+            <input type="file" name="image" required hidden onchange="showFileName(this)">
+        </label>
+
+        <br>
+
+        <button type="submit">Generate Caption</button>
+    </form>
+
+    {% if image_path %}
+        <img src="{{ image_path }}">
+    {% endif %}
+
+    {% if caption %}
+        <div class="caption-box" id="captionText">
+            {{ caption }}
+        </div>
+
+        <button class="copy-btn" onclick="copyText()">📋 Copy</button>
+    {% endif %}
+
+</div>
+
+<script>
+function copyText() {
+    let text = document.getElementById("captionText").innerText;
+    navigator.clipboard.writeText(text);
+    alert("Copied! 😄");
+}
+
+function showFileName(input) {
+    document.getElementById("fileName").innerText = input.files[0].name;
+}
+</script>
+
+</body>
+</html>
